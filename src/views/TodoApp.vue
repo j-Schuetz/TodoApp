@@ -97,16 +97,8 @@ export default {
     return {
       editTask: null as null | number,
       availableStatus: ["to-do", "active", "done"],
-      tasks: [
-        {
-          name: "moep people",
-          status: "to-do",
-        },
-        {
-          name: "Do something",
-          status: "active",
-        },
-      ],
+      taskName: "hurzel",
+      tasks: [],
       task: "",
     };
   },
@@ -123,10 +115,12 @@ export default {
         this.tasks[this.editTask].name = this.task;
         this.editTask = null;
       }
+      this.saveTasks();
       this.task = "";
     },
     deleteTask(index: number) {
       this.tasks.splice(index, 1);
+      this.saveTasks();
     },
     editTasks(index: number) {
       this.task = this.tasks[index].name;
@@ -136,7 +130,21 @@ export default {
       let newIndex = this.availableStatus.indexOf(this.tasks[index].status);
       if (++newIndex > this.availableStatus.length - 1) newIndex = 0;
       this.tasks[index].status = this.availableStatus[newIndex];
+      this.saveTasks();
     },
+    saveTasks() {
+      let parsedTasks = JSON.stringify(this.tasks);
+      localStorage.setItem("tasks", parsedTasks);
+    },
+  },
+  mounted() {
+    if (localStorage.getItem("tasks")) {
+      try {
+        this.tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+      } catch (e) {
+        localStorage.removeItem("tasks");
+      }
+    }
   },
 };
 </script>
