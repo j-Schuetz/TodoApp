@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="text-center">
-      <h1 class="text-5xl p-8 text-purple-600 font-bold">Vue Todo List</h1>
+      <h1 class="text-5xl p-6 text-white font-bold bg-red-800 rounded-b-xl">
+        Vue Todo List
+      </h1>
       <input
         v-model="task"
         class="border-2 pr-52 flex-auto"
@@ -10,14 +12,13 @@
       />
       <button
         @click="addTask()"
-        class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-1 px-4 m-2 rounded-sm"
+        class="bg-red-500 hover:bg-red-800 text-white font-bold py-1 px-4 m-2 rounded-sm"
       >
         Add
       </button>
     </div>
-    <!-- Table -->
-    <div class="container flex justify-center mx-auto w-full">
-      <div class="flex flex-col">
+    <div class="flex justify-center mx-auto">
+      <div class="flex flex-col bg-gray-400 overflow-auto">
         <div class="border-b border-gray-200 shadow">
           <table class="divide-y divide-gray-300">
             <thead class="bg-gray-50">
@@ -34,8 +35,10 @@
                 :key="index"
                 class="whitespace-nowrap"
               >
-                <td class="px-6 py-4 text-sm text-gray-500">{{ task.name }}</td>
-                <td class="px-6 py-4">
+                <td class="p-4 text-sm text-gray-500">
+                  {{ task.name }}
+                </td>
+                <td class="p-4 text-center">
                   <div
                     @click="changeStatus(index)"
                     class="text-sm text-gray-900 cursor-pointer capitalize"
@@ -44,7 +47,7 @@
                   </div>
                 </td>
 
-                <td class="px-6 py-4">
+                <td class="px-4 py-4 text-center">
                   <a href="#" @click="editTasks(index)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +65,7 @@
                     </svg>
                   </a>
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-4 py-4">
                   <a href="#" @click="deleteTask(index)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +100,6 @@ export default {
     return {
       editTask: null as null | number,
       availableStatus: ["to-do", "active", "done"],
-      taskName: "hurzel",
       tasks: [],
       task: "",
     };
